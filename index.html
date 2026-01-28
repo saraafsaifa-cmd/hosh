@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Cute Navbar */
+        .navbar {
+            background-color: #FFB6D9;
+            padding: 20px 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(255, 182, 217, 0.3);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #FF69B4;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .navbar a:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .navbar a.active {
+            background-color: #fff;
+            color: #FF1493;
+        }
+
+        /* Container in the middle */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .container h1 {
+            color: #FF69B4;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 182, 217, 0.3);
+        }
+
+        .container p {
+            color: #B76E79;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .welcome-section {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: #FFE5EC;
+            border-radius: 25px;
+            border: 3px solid #FFB6D9;
+        }
+
+        .welcome-section h2 {
+            color: #FF1493;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            color: #8B5F65;
+        }
+
+        /* Privacy Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .modal-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            border: 4px solid #FFB6D9;
+            text-align: center;
+        }
+
+        .modal-box h2 {
+            color: #FF1493;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .modal-box p {
+            color: #8B5F65;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            color: #B76E79;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .modal-button {
+            background-color: #FFB6D9;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 182, 217, 0.3);
+        }
+
+        .modal-button:hover:not(:disabled) {
+            background-color: #FF69B4;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .modal-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .container h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+
+            .container p {
+                font-size: 16px;
+            }
+
+            .welcome-section {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .welcome-section h2 {
+                font-size: 20px;
+            }
+
+            .welcome-section p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .modal-box {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .modal-box h2 {
+                font-size: 24px;
+            }
+
+            .modal-box p {
+                font-size: 14px;
+            }
+
+            .modal-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .navbar {
+                padding: 10px;
+                gap: 8px;
+                margin-bottom: 20px;
+                flex-direction: column;
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 8px 12px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .container h1 {
+                font-size: 24px;
+            }
+
+            .container p {
+                font-size: 14px;
+            }
+
+            .welcome-section {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .welcome-section h2 {
+                font-size: 18px;
+            }
+
+            .welcome-section p {
+                font-size: 12px;
+            }
+
+            .modal-box {
+                padding: 20px;
+            }
+
+            .modal-box h2 {
+                font-size: 20px;
+            }
+
+            .checkbox-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .checkbox-container label {
+                font-size: 14px;
+            }
+
+            .modal-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cute Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="active">Home</a>
+        <a href="invitations.html">Invitations</a>
+        <a href="dates.html">dates</a>
+    </nav>
+
+    <!-- Container in the middle -->
+    <div class="container">
+        <h1>Welcome! ♡</h1>
+        <p>:DD</p>
+        
+        <div class="welcome-section">
+            <h2>Hello my Jana marie</h2>
+            <p>
+ This is a place made to remind you that you are deeply loved, always protected, and never alone.
+
+Every part of this was created with you in mind, with patience, tenderness, and so much love. May it feel like home whenever you arrive — a reminder that you deserve softness, joy, and peace simply for being you.
+
+Made with love, always,
+hosh</p>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacyModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h2>Privacy & Concern</h2>
+            <p>This space was created with care, trust, and respect at its core. Everything here exists solely for Jana. Your presence, your thoughts, and your moments within this site are private and protected. Nothing here is shared, tracked, or used beyond this space, There are no hidden rules, no expectations, and no obligations. This site asks nothing of you except that you feel safe, comfortable, and at ease whenever you visit.</p>
+            <p>By checking the box below, you acknowledge that you understand and agree to our privacy terms.</p>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="privacyCheck">
+                <label for="privacyCheck">I understand and agree</label>
+            </div>
+            
+            <button id="continueBtn" class="modal-button" disabled>Continue</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('privacyModal');
+        const checkbox = document.getElementById('privacyCheck');
+        const continueBtn = document.getElementById('continueBtn');
+
+        // Enable button only when checkbox is checked
+        checkbox.addEventListener('change', function() {
+            continueBtn.disabled = !this.checked;
+        });
+
+        // Close modal when continue button is clicked
+        continueBtn.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

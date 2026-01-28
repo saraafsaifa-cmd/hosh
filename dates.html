@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Cute Navbar */
+        .navbar {
+            background-color: #FFB6D9;
+            padding: 20px 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(255, 182, 217, 0.3);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #FF69B4;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .navbar a:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .navbar a.active {
+            background-color: #fff;
+            color: #FF1493;
+        }
+
+        /* Container in the middle */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .container h1 {
+            color: #FF69B4;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 182, 217, 0.3);
+        }
+
+        .container p {
+            color: #B76E79;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .welcome-section {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: #FFE5EC;
+            border-radius: 25px;
+            border: 3px solid #FFB6D9;
+        }
+
+        .welcome-section h2 {
+            color: #FF1493;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            color: #8B5F65;
+        }
+
+        /* Dates Timeline */
+        .dates-timeline {
+            margin-top: 40px;
+        }
+
+        .date-entry {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .date-entry.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .date-image {
+            flex: 0 0 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            border-radius: 50%;
+            border: 4px solid #FFB6D9;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 182, 217, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            color: #FFB6D9;
+        }
+
+        .date-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #FFB6D9;
+        }
+
+        .date-content h3 {
+            color: #FF1493;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .date-content p {
+            color: #8B5F65;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .date-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #FFB6D9;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .container h1 {
+                font-size: 32px;
+            }
+
+            .container p {
+                font-size: 16px;
+            }
+
+            .dates-timeline {
+                margin-top: 30px;
+            }
+
+            .date-entry {
+                gap: 20px;
+                margin-bottom: 40px;
+                flex-direction: column !important;
+            }
+
+            .date-entry.reverse {
+                flex-direction: column !important;
+            }
+
+            .date-image {
+                flex: 0 0 200px;
+                height: 200px;
+            }
+
+            .date-content {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .date-content h3 {
+                font-size: 20px;
+            }
+
+            .date-content p {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .navbar {
+                padding: 10px;
+                gap: 8px;
+                margin-bottom: 20px;
+                flex-direction: column;
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 8px 12px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .container h1 {
+                font-size: 24px;
+            }
+
+            .container p {
+                font-size: 14px;
+            }
+
+            .dates-timeline {
+                margin-top: 20px;
+            }
+
+            .date-entry {
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+
+            .date-image {
+                flex: 0 0 150px;
+                height: 150px;
+                border-radius: 15px;
+            }
+
+            .date-content {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .date-content h3 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .date-content p {
+                font-size: 12px;
+                line-height: 1.5;
+            }
+
+            .date-number {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cute Navbar -->
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="invitations.html">Invitations</a>
+        <a href="dates.html" class="active">dates</a>
+    </nav>
+
+    <!-- Container in the middle -->
+    <div class="container">
+        <h1>Dates ♡</h1>
+        <p>Memorable moments and special dates</p>
+        
+        <div class="dates-timeline">
+            <!-- Date 1 -->
+            <div class="date-entry">
+                <div class="date-image">
+                    <img src="Date 1.jpeg" alt="Date 1" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="date-content">
+                    <div class="date-number">1</div>
+                    <h3>Our First Date</h3>
+                    <p>The first time I ever agreed to meet someone I matched with on a dating app. I'll always be grateful I swiped right—I can't imagine spending time or sharing my corniest jokes with anyone else.</p>
+                </div>
+            </div>
+
+            <!-- Date 2 -->
+            <div class="date-entry reverse">
+                <div class="date-image">
+                    <img src="Date 2.jpeg" alt="Date 2" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="date-content">
+                    <div class="date-number">2</div>
+                    <h3>Vermosa</h3>
+                    <p>A very simple date after an overstimulating first one. We got to talk openly and share how we felt about different things. Jana loves to yap, and I find it really cute. I also tried ramen again after a long time, and I appreciated how she helped me finish a meal I couldn't on my own.</p>
+                </div>
+            </div>
+
+            <!-- Date 3 -->
+            <div class="date-entry">
+                <div class="date-image">
+                    <img src="Date 3.jpeg" alt="Date 3" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="date-content">
+                    <div class="date-number">3</div>
+                    <h3>Tagaytay</h3>
+                    <p>Jana loves animals so much. I got to take her to Tagaytay, where we strolled around for a bit. It was the perfect way to end the day at a local cat café.</p>
+                </div>
+            </div>
+
+            <!-- Date 4 -->
+            <div class="date-entry reverse">
+                <div class="date-image">
+                    <img src="Date 4.jpeg" alt="Date 4" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="date-content">
+                    <div class="date-number">4</div>
+                    <h3>Promenade</h3>
+                    <p>I really appreciate her for always coming to see me. Simple dates truly are the best. I remember being so exhausted the week before we met, so seeing her, my pahinga, meant a lot. - Okayy very clingy na</p>
+                </div>
+            </div>
+
+            <!-- Date 5 -->
+            <div class="date-entry">
+                <div class="date-image">
+                    <img src="Date 5.jpeg" alt="Date 5" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="date-content">
+                    <div class="date-number">5</div>
+                    <h3>Taj Badshah</h3>
+                    <p>A "study for a bit, then date again" kind of day. She really loves the biryani place, visited the cat café again, and walked around Promenade. It was nice just watching TikTok and Instagram reels together. At this point, I lowkey didn't want her to go home. We really should get her to the sakayan earlier next time though. I miss my Jana Marie already.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add any interactive features here
+    </script>
+</body>
+</html>

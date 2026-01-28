@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Cute Navbar */
+        .navbar {
+            background-color: #FFB6D9;
+            padding: 20px 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(255, 182, 217, 0.3);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #FF69B4;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .navbar a:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .navbar a.active {
+            background-color: #fff;
+            color: #FF1493;
+        }
+
+        /* Container in the middle */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .container h1 {
+            color: #FF69B4;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 182, 217, 0.3);
+        }
+
+        .container p {
+            color: #B76E79;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .welcome-section {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: #FFE5EC;
+            border-radius: 25px;
+            border: 3px solid #FFB6D9;
+        }
+
+        .welcome-section h2 {
+            color: #FF1493;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            color: #8B5F65;
+        }
+
+        /* Floating Envelope */
+        .envelope-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 380px;
+            height: 280px;
+            background-color: #fff;
+            border: 3px solid #FFB6D9;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(255, 182, 217, 0.4);
+            cursor: pointer;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .envelope:hover {
+            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.6);
+            transform: scale(1.05);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Envelope Flap */
+        .envelope-flap {
+            width: 0;
+            height: 0;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
+            border-top: 140px solid #FFB6D9;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: top center;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        /* Envelope Body */
+        .envelope-body {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFB6D9;
+            font-size: 24px;
+        }
+
+        /* Letter */
+        .letter {
+            display: none;
+        }
+
+        /* Letter Modal */
+        .letter-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .letter-modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .letter-modal-box {
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFEBF0 100%);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 600px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            border: 4px solid #FFB6D9;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .letter-modal-box h3 {
+            color: #FF1493;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .letter-modal-box p {
+            color: #8B5F65;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-family: 'Georgia', serif;
+        }
+
+        .letter-modal-box .signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #FF69B4;
+            font-size: 12px;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #FFB6D9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal-btn:hover {
+            color: #FF1493;
+            transform: scale(1.2);
+        }
+
+        .yes-button {
+            background-color: #FFB6D9;
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 182, 217, 0.3);
+        }
+
+        .yes-button:hover {
+            background-color: #FF69B4;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Cute Notification Modal */
+        .notification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification-overlay.active {
+            display: flex;
+        }
+
+        .notification-box {
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            padding: 50px 40px;
+            border-radius: 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            border: 4px solid #FFB6D9;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+
+        .notification-box h2 {
+            color: #FF1493;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .notification-box p {
+            color: #FF69B4;
+            font-size: 24px;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+        }
+
+        .close-notification-btn {
+            background-color: #FFB6D9;
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 182, 217, 0.3);
+        }
+
+        .close-notification-btn:hover {
+            background-color: #FF69B4;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .container h1 {
+                font-size: 32px;
+            }
+
+            .envelope-container {
+                min-height: 300px;
+            }
+
+            .envelope {
+                width: 280px;
+                height: 200px;
+            }
+
+            .envelope-flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-top: 100px solid #FFB6D9;
+            }
+
+            .envelope-body {
+                font-size: 20px;
+            }
+
+            .letter-modal-box {
+                max-width: 90%;
+                padding: 30px 20px;
+            }
+
+            .letter-modal-box h3 {
+                font-size: 18px;
+            }
+
+            .letter-modal-box p {
+                font-size: 12px;
+            }
+
+            .yes-button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+
+            .button-container {
+                gap: 10px;
+            }
+
+            .notification-box {
+                padding: 40px 30px;
+            }
+
+            .notification-box h2 {
+                font-size: 28px;
+            }
+
+            .notification-box p {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .navbar {
+                padding: 10px;
+                gap: 8px;
+                margin-bottom: 20px;
+                flex-direction: column;
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 8px 12px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .container h1 {
+                font-size: 24px;
+            }
+
+            .envelope-container {
+                min-height: 250px;
+            }
+
+            .envelope {
+                width: 220px;
+                height: 160px;
+            }
+
+            .envelope-flap {
+                border-left: 110px solid transparent;
+                border-right: 110px solid transparent;
+                border-top: 80px solid #FFB6D9;
+            }
+
+            .letter-modal-box {
+                padding: 25px 15px;
+                max-height: 80vh;
+            }
+
+            .letter-modal-box h3 {
+                font-size: 16px;
+            }
+
+            .letter-modal-box p {
+                font-size: 11px;
+            }
+
+            .yes-button {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .button-container .yes-button {
+                width: 100%;
+            }
+
+            .close-modal-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+            }
+
+            .notification-box {
+                padding: 30px 20px;
+            }
+
+            .notification-box h2 {
+                font-size: 24px;
+            }
+
+            .notification-box p {
+                font-size: 16px;
+            }
+
+            .close-notification-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cute Navbar -->
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="invitations.html" class="active">Invitations</a>
+        <a href="dates.html">dates</a>
+    </nav>
+
+    <!-- Container in the middle -->
+    <div class="container">
+        <h1>Invitations ♡</h1>
+        <p>Special moments and invitations, just for you</p>
+        
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">✉️</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter Modal -->
+    <div id="letterModal" class="letter-modal-overlay">
+        <div class="letter-modal-box">
+            <button class="close-modal-btn" onclick="closeLetter()">✕</button>
+            <h3>💌 For You 💌</h3>
+            <p>hi love!</p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                Jana Marie, this is super corny noh, please be my Valentine:
+            </p>
+            <p class="signature">
+                Say yes
+            </p>
+            <div class="button-container">
+                <button class="yes-button" onclick="showNotification('dapat lang, <3')">yes</button>
+                <button class="yes-button" onclick="showNotification('yey, mwa')">yes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="notification-overlay">
+        <div class="notification-box">
+            <h2>🐈‍⬛</h2>
+            <p id="notificationText"></p>
+            <button class="close-notification-btn" onclick="closeNotification()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const letterModal = document.getElementById('letterModal');
+        const notificationModal = document.getElementById('notificationModal');
+        const notificationText = document.getElementById('notificationText');
+
+        envelope.addEventListener('click', function() {
+            letterModal.classList.add('active');
+            this.classList.add('open');
+        });
+
+        function closeLetter() {
+            letterModal.classList.remove('active');
+            envelope.classList.remove('open');
+        }
+
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notificationModal.classList.add('active');
+        }
+
+        function closeNotification() {
+            notificationModal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        letterModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLetter();
+            }
+        });
+
+        // Close notification when clicking outside
+        notificationModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNotification();
+            }
+        });
+    </script>
+</body>
+</html>
