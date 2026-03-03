@@ -118,6 +118,12 @@
             box-shadow: 0 10px 22px rgba(255, 105, 180, 0.25);
         }
 
+        .date-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
         .date-image {
             width: 100%;
             height: 190px;
@@ -133,6 +139,10 @@
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        .date-image img.full-view {
+            object-position: center 70%;
         }
 
         .image-placeholder {
@@ -159,14 +169,6 @@
             color: #8B5F65;
             font-size: 16px;
             font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .date-note {
-            color: #8B5F65;
-            font-size: 14px;
-            line-height: 1.6;
-            text-align: left;
         }
 
         @media (max-width: 768px) {
@@ -220,10 +222,6 @@
             .date-place {
                 font-size: 15px;
             }
-
-            .date-note {
-                font-size: 13px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -275,11 +273,6 @@
             .date-place {
                 font-size: 14px;
             }
-
-            .date-note {
-                font-size: 12px;
-                line-height: 1.5;
-            }
         }
     </style>
 </head>
@@ -296,125 +289,137 @@
 
         <div class="dates-board">
             <section class="month-section">
-                <h2>Earlier Dates</h2>
+                <h2>January 2026</h2>
                 <div class="date-cards">
+                    <a class="date-link" href="date-view.html?id=1&date=January%2010,%202026&place=First%20Date&img=Date%201.jpeg">
                     <article class="date-card">
                         <div class="date-image">
                             <img src="Date 1.jpeg" alt="Our First Date">
                         </div>
-                        <div class="date-title">Our First Date</div>
-                        <div class="date-place">Date 1</div>
-                        <p class="date-note">The first time I ever agreed to meet someone I matched with on a dating app. I'll always be grateful I swiped right—I can't imagine spending time or sharing my corniest jokes with anyone else.</p>
+                        <div class="date-title">January 10, 2026</div>
+                        <div class="date-place">First Date</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=2&date=January%2013,%202026&place=Second%20Date&img=Date%202.jpeg">
                     <article class="date-card">
                         <div class="date-image">
                             <img src="Date 2.jpeg" alt="Vermosa Date">
                         </div>
-                        <div class="date-title">Vermosa</div>
-                        <div class="date-place">Date 2</div>
-                        <p class="date-note">A very simple date after an overstimulating first one. We got to talk openly and share how we felt about different things. Jana loves to yap, and I find it really cute. I also tried ramen again after a long time, and I appreciated how she helped me finish a meal I couldn't on my own.</p>
+                        <div class="date-title">January 13, 2026</div>
+                        <div class="date-place">Second Date</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=3&date=January%2016,%202026&place=Third%20Date&img=Date%203.jpeg">
                     <article class="date-card">
                         <div class="date-image">
                             <img src="Date 3.jpeg" alt="Tagaytay Date">
                         </div>
-                        <div class="date-title">Tagaytay</div>
-                        <div class="date-place">Date 3</div>
-                        <p class="date-note">Jana loves animals so much. I got to take her to Tagaytay, where we strolled around for a bit. It was the perfect way to end the day at a local cat café.</p>
+                        <div class="date-title">January 16, 2026</div>
+                        <div class="date-place">Third Date</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=4&date=January%2023,%202026&place=Promenade&img=Date%204.jpeg">
                     <article class="date-card">
                         <div class="date-image">
                             <img src="Date 4.jpeg" alt="Promenade Date">
                         </div>
-                        <div class="date-title">Promenade</div>
-                        <div class="date-place">Date 4</div>
-                        <p class="date-note">I really appreciate her for always coming to see me. Simple dates truly are the best. I remember being so exhausted the week before we met, so seeing her, my pahinga, meant a lot. - Okayy very clingy na</p>
+                        <div class="date-title">January 23, 2026</div>
+                        <div class="date-place">Promenade</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=5&date=January%2027,%202026&place=Promenade&img=Date%205.jpeg">
                     <article class="date-card">
                         <div class="date-image">
                             <img src="Date 5.jpeg" alt="Taj Badshah Date">
                         </div>
-                        <div class="date-title">Taj Badshah</div>
-                        <div class="date-place">Date 5</div>
-                        <p class="date-note">A "study for a bit, then date again" kind of day. She really loves the biryani place, visited the cat café again, and walked around Promenade. It was nice just watching TikTok and Instagram reels together. At this point, I lowkey didn't want her to go home. We really should get her to the sakayan earlier next time though. I miss my Jana Marie already.</p>
+                        <div class="date-title">January 27, 2026</div>
+                        <div class="date-place">Promenade</div>
                     </article>
+                    </a>
+
+                    <a class="date-link" href="date-view.html?id=6&date=January%2031,%202026&place=Escolta&img=Date%206.jpeg">
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 6.jpeg" alt="January 31, 2026 - Escolta">
+                        </div>
+                        <div class="date-title">January 31, 2026</div>
+                        <div class="date-place">Escolta</div>
+                    </article>
+                    </a>
                 </div>
             </section>
 
             <section class="month-section">
                 <h2>February 2026</h2>
                 <div class="date-cards">
+                    <a class="date-link" href="date-view.html?id=7&date=February%2010,%202026&place=Valentine&img=Date%207.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
-                        </div>
-                        <div class="date-title">February 6, 2026</div>
-                        <div class="date-place">Escolta</div>
-                        <p class="date-note">Add your note here.</p>
-                    </article>
-
-                    <article class="date-card">
-                        <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 7.jpeg" alt="February 10, 2026 - Valentine">
                         </div>
                         <div class="date-title">February 10, 2026</div>
-                        <div class="date-place">Valentines</div>
-                        <p class="date-note">Add your note here.</p>
+                        <div class="date-place">Valentine</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=8&date=February%2013,%202026&place=Cafe%20salvacion&img=Date%208.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 8.jpeg" alt="February 13, 2026 - Cafe salvacion">
                         </div>
                         <div class="date-title">February 13, 2026</div>
-                        <div class="date-place">Dubai Choco Cookie</div>
-                        <p class="date-note">Add your note here.</p>
+                        <div class="date-place">Cafe salvacion</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=9&date=February%2017,%202026&place=:%3C&img=Date%209.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 9.jpeg" alt="February 17, 2026">
                         </div>
                         <div class="date-title">February 17, 2026</div>
-                        <div class="date-place">Vermosa</div>
-                        <p class="date-note">Add your note here.</p>
+                        <div class="date-place">:&lt;</div>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=10&date=February%2021,%202026&place=Makati&img=Date%2010.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 10.jpeg" alt="February 21, 2026 - Makati">
                         </div>
                         <div class="date-title">February 21, 2026</div>
                         <div class="date-place">Makati</div>
-                        <p class="date-note">Add your note here.</p>
                     </article>
+                    </a>
 
+                    <a class="date-link" href="date-view.html?id=11&date=February%2028,%202026&place=Sbc&img=Date%2011.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 11.jpeg" alt="February 28, 2026 - SBC">
                         </div>
                         <div class="date-title">February 28, 2026</div>
                         <div class="date-place">Sbc</div>
-                        <p class="date-note">Add your note here.</p>
                     </article>
+                    </a>
                 </div>
             </section>
 
             <section class="month-section">
                 <h2>March 2026</h2>
                 <div class="date-cards">
+                    <a class="date-link" href="date-view.html?id=12&date=March%202,%202026&place=Sunset%20View&img=Date%2012.jpeg">
                     <article class="date-card">
                         <div class="date-image">
-                            <div class="image-placeholder">Image coming soon</div>
+                            <img src="Date 12.jpeg" alt="March 2, 2026 - Sunset View" class="full-view">
                         </div>
                         <div class="date-title">March 2, 2026</div>
-                        <div class="date-place">SB aseana - Sunset</div>
-                        <p class="date-note">Add your note here.</p>
+                        <div class="date-place">Sunset View</div>
                     </article>
+                    </a>
                 </div>
             </section>
         </div>
