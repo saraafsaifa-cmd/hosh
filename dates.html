@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitations</title>
+    <title>Dates</title>
     <style>
         * {
             margin: 0;
@@ -18,7 +18,6 @@
             padding: 20px;
         }
 
-        /* Cute Navbar */
         .navbar {
             background-color: #FFB6D9;
             padding: 20px 40px;
@@ -53,7 +52,6 @@
             color: #FF1493;
         }
 
-        /* Container in the middle */
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -79,285 +77,98 @@
             line-height: 1.6;
         }
 
-        .welcome-section {
-            margin-top: 30px;
-            padding: 30px;
-            background-color: #FFE5EC;
-            border-radius: 25px;
-            border: 3px solid #FFB6D9;
+        .dates-board {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .welcome-section h2 {
+        .month-section {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid #FFB6D9;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .month-section h2 {
             color: #FF1493;
-            margin-bottom: 15px;
-        }
-
-        .welcome-section p {
-            color: #8B5F65;
-        }
-
-        /* Floating Envelope */
-        .envelope-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-            perspective: 1000px;
-        }
-
-        .envelope {
-            width: 380px;
-            height: 280px;
-            background-color: #fff;
-            border: 3px solid #FFB6D9;
-            border-radius: 5px;
-            box-shadow: 0 10px 30px rgba(255, 182, 217, 0.4);
-            cursor: pointer;
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-            transition: all 0.3s ease;
-        }
-
-        .envelope:hover {
-            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.6);
-            transform: scale(1.05);
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        /* Envelope Flap */
-        .envelope-flap {
-            width: 0;
-            height: 0;
-            border-left: 190px solid transparent;
-            border-right: 190px solid transparent;
-            border-top: 140px solid #FFB6D9;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: top center;
-            transition: transform 0.6s ease;
-        }
-
-        .envelope.open .envelope-flap {
-            transform: rotateX(180deg);
-        }
-
-        /* Envelope Body */
-        .envelope-body {
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFB6D9;
             font-size: 24px;
+            margin-bottom: 20px;
         }
 
-        /* Letter */
-        .letter {
-            display: none;
+        .date-cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
         }
 
-        /* Letter Modal */
-        .letter-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .date-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 18px;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 6px 15px rgba(255, 182, 217, 0.2);
+        }
+
+        .date-card:hover {
+            transform: translateY(-4px);
+            border-color: #FF69B4;
+            box-shadow: 0 10px 22px rgba(255, 105, 180, 0.25);
+        }
+
+        .date-image {
+            width: 100%;
+            height: 190px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            border: 2px solid #FFB6D9;
+        }
+
+        .date-image img {
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
+            object-fit: cover;
+            display: block;
         }
 
-        .letter-modal-overlay.active {
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
             display: flex;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .letter-modal-box {
-            background: linear-gradient(135deg, #FFF5F7 0%, #FFEBF0 100%);
-            padding: 40px;
-            border-radius: 30px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 600px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
-            border: 4px solid #FFB6D9;
+            align-items: center;
+            justify-content: center;
+            color: #B76E79;
+            font-size: 14px;
+            font-weight: 600;
             text-align: center;
-            position: relative;
-            overflow-y: auto;
-            animation: slideUp 0.5s ease;
+            padding: 8px;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .letter-modal-box h3 {
+        .date-title {
             color: #FF1493;
+            font-weight: 700;
             font-size: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        .letter-modal-box p {
+        .date-place {
+            color: #8B5F65;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .date-note {
             color: #8B5F65;
             font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 10px;
-            font-family: 'Georgia', serif;
+            text-align: left;
         }
 
-        .letter-modal-box .signature {
-            margin-top: 20px;
-            font-style: italic;
-            color: #FF69B4;
-            font-size: 12px;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: #FFB6D9;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-modal-btn:hover {
-            color: #FF1493;
-            transform: scale(1.2);
-        }
-
-        .yes-button {
-            background-color: #FFB6D9;
-            color: #fff;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 182, 217, 0.3);
-        }
-
-        .yes-button:hover {
-            background-color: #FF69B4;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
-        }
-
-        .button-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        /* Cute Notification Modal */
-        .notification-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .notification-overlay.active {
-            display: flex;
-        }
-
-        .notification-box {
-            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
-            padding: 50px 40px;
-            border-radius: 30px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
-            border: 4px solid #FFB6D9;
-            text-align: center;
-            animation: slideUp 0.5s ease;
-        }
-
-        .notification-box h2 {
-            color: #FF1493;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .notification-box p {
-            color: #FF69B4;
-            font-size: 24px;
-            font-weight: 600;
-            font-family: 'Georgia', serif;
-        }
-
-        .close-notification-btn {
-            background-color: #FFB6D9;
-            color: #fff;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(255, 182, 217, 0.3);
-        }
-
-        .close-notification-btn:hover {
-            background-color: #FF69B4;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
@@ -379,57 +190,39 @@
                 font-size: 32px;
             }
 
-            .envelope-container {
-                min-height: 300px;
+            .container p {
+                font-size: 16px;
             }
 
-            .envelope {
-                width: 280px;
-                height: 200px;
+            .dates-board {
+                margin-top: 30px;
+                gap: 20px;
             }
 
-            .envelope-flap {
-                border-left: 140px solid transparent;
-                border-right: 140px solid transparent;
-                border-top: 100px solid #FFB6D9;
+            .month-section {
+                padding: 18px;
+                border-radius: 16px;
             }
 
-            .envelope-body {
+            .month-section h2 {
                 font-size: 20px;
+                margin-bottom: 14px;
             }
 
-            .letter-modal-box {
-                max-width: 90%;
-                padding: 30px 20px;
+            .date-cards {
+                grid-template-columns: 1fr;
             }
 
-            .letter-modal-box h3 {
+            .date-title {
                 font-size: 18px;
             }
 
-            .letter-modal-box p {
-                font-size: 12px;
+            .date-place {
+                font-size: 15px;
             }
 
-            .yes-button {
-                padding: 10px 25px;
-                font-size: 14px;
-            }
-
-            .button-container {
-                gap: 10px;
-            }
-
-            .notification-box {
-                padding: 40px 30px;
-            }
-
-            .notification-box h2 {
-                font-size: 28px;
-            }
-
-            .notification-box p {
-                font-size: 20px;
+            .date-note {
+                font-size: 13px;
             }
         }
 
@@ -461,160 +254,174 @@
                 font-size: 24px;
             }
 
-            .envelope-container {
-                min-height: 250px;
-            }
-
-            .envelope {
-                width: 220px;
-                height: 160px;
-            }
-
-            .envelope-flap {
-                border-left: 110px solid transparent;
-                border-right: 110px solid transparent;
-                border-top: 80px solid #FFB6D9;
-            }
-
-            .letter-modal-box {
-                padding: 25px 15px;
-                max-height: 80vh;
-            }
-
-            .letter-modal-box h3 {
-                font-size: 16px;
-            }
-
-            .letter-modal-box p {
-                font-size: 11px;
-            }
-
-            .yes-button {
-                padding: 10px 20px;
-                font-size: 12px;
-            }
-
-            .button-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .button-container .yes-button {
-                width: 100%;
-            }
-
-            .close-modal-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 24px;
-            }
-
-            .notification-box {
-                padding: 30px 20px;
-            }
-
-            .notification-box h2 {
-                font-size: 24px;
-            }
-
-            .notification-box p {
-                font-size: 16px;
-            }
-
-            .close-notification-btn {
-                padding: 10px 25px;
+            .container p {
                 font-size: 14px;
+            }
+
+            .date-card {
+                padding: 14px;
+                border-radius: 12px;
+            }
+
+            .date-image {
+                height: 165px;
+                margin-bottom: 12px;
+            }
+
+            .date-title {
+                font-size: 16px;
+            }
+
+            .date-place {
+                font-size: 14px;
+            }
+
+            .date-note {
+                font-size: 12px;
+                line-height: 1.5;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Cute Navbar -->
     <nav class="navbar">
         <a href="index.html">Home</a>
-        <a href="invitations.html" class="active">Invitations</a>
-        <a href="dates.html">dates</a>
+        <a href="invitations.html">Invitations</a>
+        <a href="dates.html" class="active">dates</a>
     </nav>
 
-    <!-- Container in the middle -->
     <div class="container">
-        <h1>Invitations ♡</h1>
-        <p>Special moments and invitations, just for you</p>
-        
-        <div class="envelope-container">
-            <div class="envelope" id="envelope">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body">✉️</div>
-            </div>
-        </div>
-    </div>
+        <h1>Dates ♡</h1>
+        <p>Memorable moments and special dates</p>
 
-    <!-- Letter Modal -->
-    <div id="letterModal" class="letter-modal-overlay">
-        <div class="letter-modal-box">
-            <button class="close-modal-btn" onclick="closeLetter()">✕</button>
-            <h3>💌 For You 💌</h3>
-            <p>hi love!</p>
-            <p style="margin-top: 10px; font-size: 12px;">
-                Jana Marie, this is super corny noh, please be my Valentine:
-            </p>
-            <p class="signature">
-                Say yes
-            </p>
-            <div class="button-container">
-                <button class="yes-button" onclick="showNotification('dapat lang, <3')">yes</button>
-                <button class="yes-button" onclick="showNotification('yey, mwa')">yes</button>
-            </div>
-        </div>
-    </div>
+        <div class="dates-board">
+            <section class="month-section">
+                <h2>Earlier Dates</h2>
+                <div class="date-cards">
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 1.jpeg" alt="Our First Date">
+                        </div>
+                        <div class="date-title">Our First Date</div>
+                        <div class="date-place">Date 1</div>
+                        <p class="date-note">The first time I ever agreed to meet someone I matched with on a dating app. I'll always be grateful I swiped right—I can't imagine spending time or sharing my corniest jokes with anyone else.</p>
+                    </article>
 
-    <!-- Notification Modal -->
-    <div id="notificationModal" class="notification-overlay">
-        <div class="notification-box">
-            <h2>🐈‍⬛</h2>
-            <p id="notificationText"></p>
-            <button class="close-notification-btn" onclick="closeNotification()">Close</button>
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 2.jpeg" alt="Vermosa Date">
+                        </div>
+                        <div class="date-title">Vermosa</div>
+                        <div class="date-place">Date 2</div>
+                        <p class="date-note">A very simple date after an overstimulating first one. We got to talk openly and share how we felt about different things. Jana loves to yap, and I find it really cute. I also tried ramen again after a long time, and I appreciated how she helped me finish a meal I couldn't on my own.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 3.jpeg" alt="Tagaytay Date">
+                        </div>
+                        <div class="date-title">Tagaytay</div>
+                        <div class="date-place">Date 3</div>
+                        <p class="date-note">Jana loves animals so much. I got to take her to Tagaytay, where we strolled around for a bit. It was the perfect way to end the day at a local cat café.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 4.jpeg" alt="Promenade Date">
+                        </div>
+                        <div class="date-title">Promenade</div>
+                        <div class="date-place">Date 4</div>
+                        <p class="date-note">I really appreciate her for always coming to see me. Simple dates truly are the best. I remember being so exhausted the week before we met, so seeing her, my pahinga, meant a lot. - Okayy very clingy na</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <img src="Date 5.jpeg" alt="Taj Badshah Date">
+                        </div>
+                        <div class="date-title">Taj Badshah</div>
+                        <div class="date-place">Date 5</div>
+                        <p class="date-note">A "study for a bit, then date again" kind of day. She really loves the biryani place, visited the cat café again, and walked around Promenade. It was nice just watching TikTok and Instagram reels together. At this point, I lowkey didn't want her to go home. We really should get her to the sakayan earlier next time though. I miss my Jana Marie already.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="month-section">
+                <h2>February 2026</h2>
+                <div class="date-cards">
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 6, 2026</div>
+                        <div class="date-place">Escolta</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 10, 2026</div>
+                        <div class="date-place">Valentines</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 13, 2026</div>
+                        <div class="date-place">Dubai Choco Cookie</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 17, 2026</div>
+                        <div class="date-place">Vermosa</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 21, 2026</div>
+                        <div class="date-place">Makati</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">February 28, 2026</div>
+                        <div class="date-place">Sbc</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="month-section">
+                <h2>March 2026</h2>
+                <div class="date-cards">
+                    <article class="date-card">
+                        <div class="date-image">
+                            <div class="image-placeholder">Image coming soon</div>
+                        </div>
+                        <div class="date-title">March 2, 2026</div>
+                        <div class="date-place">SB aseana - Sunset</div>
+                        <p class="date-note">Add your note here.</p>
+                    </article>
+                </div>
+            </section>
         </div>
     </div>
 
     <script>
-        const envelope = document.getElementById('envelope');
-        const letterModal = document.getElementById('letterModal');
-        const notificationModal = document.getElementById('notificationModal');
-        const notificationText = document.getElementById('notificationText');
-
-        envelope.addEventListener('click', function() {
-            letterModal.classList.add('active');
-            this.classList.add('open');
-        });
-
-        function closeLetter() {
-            letterModal.classList.remove('active');
-            envelope.classList.remove('open');
-        }
-
-        function showNotification(message) {
-            notificationText.textContent = message;
-            notificationModal.classList.add('active');
-        }
-
-        function closeNotification() {
-            notificationModal.classList.remove('active');
-        }
-
-        // Close modal when clicking outside
-        letterModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeLetter();
-            }
-        });
-
-        // Close notification when clicking outside
-        notificationModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeNotification();
-            }
-        });
+        // Add any interactive features here
     </script>
 </body>
 </html>
