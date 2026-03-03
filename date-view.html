@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC9DD 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #FFB6D9;
+            padding: 20px 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(255, 182, 217, 0.3);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #FF1493;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.35);
+        }
+
+        h1 {
+            color: #FF1493;
+            font-size: 34px;
+            margin-bottom: 6px;
+        }
+
+        .place {
+            color: #8B5F65;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .photo {
+            width: 100%;
+            height: 420px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 3px solid #FFB6D9;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .label {
+            color: #FF1493;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 170px;
+            border-radius: 14px;
+            border: 2px solid #FFB6D9;
+            padding: 14px;
+            font-size: 15px;
+            resize: vertical;
+            color: #8B5F65;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #FF69B4;
+            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+        }
+
+        .actions {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .saved-note-wrap {
+            margin-top: 18px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid #FFB6D9;
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .saved-note-title {
+            color: #FF1493;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .saved-note-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .saved-note-item {
+            border: 2px solid #FFD4E5;
+            border-radius: 12px;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .saved-note-text {
+            color: #8B5F65;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 8px;
+        }
+
+        .saved-note-time {
+            color: #B76E79;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .saved-note-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .saved-note-delete {
+            background-color: #fff;
+            color: #FF1493;
+            border: 2px solid #FFB6D9;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #FFB6D9;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: #fff;
+            color: #FF1493;
+            border: 2px solid #FFB6D9;
+        }
+
+        .saved {
+            color: #8B5F65;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 18px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .place {
+                font-size: 16px;
+            }
+
+            .photo {
+                height: 290px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .photo {
+                height: 230px;
+            }
+
+            textarea {
+                min-height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="dates.html">← Back to Dates</a>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <div class="container">
+        <h1 id="dateTitle">Date</h1>
+        <div class="place" id="datePlace">Place</div>
+
+        <div class="photo">
+            <img id="dateImage" src="" alt="Date photo">
+        </div>
+
+        <div class="label">Thoughts</div>
+        <textarea id="dateNote" placeholder="Write your thoughts here..."></textarea>
+
+        <div class="actions">
+            <button id="saveBtn" type="button">Save Note</button>
+            <span class="saved" id="savedText"></span>
+        </div>
+
+        <div class="saved-note-wrap">
+            <div class="saved-note-title">Saved notes</div>
+            <div class="saved-note-list" id="savedNoteList"></div>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const dateId = params.get('id') || 'default';
+        const dateText = params.get('date') || 'Date';
+        const placeText = params.get('place') || '';
+        const imagePath = params.get('img') || '';
+
+        const dateTitle = document.getElementById('dateTitle');
+        const datePlace = document.getElementById('datePlace');
+        const dateImage = document.getElementById('dateImage');
+        const dateNote = document.getElementById('dateNote');
+        const saveBtn = document.getElementById('saveBtn');
+        const savedText = document.getElementById('savedText');
+        const savedNoteList = document.getElementById('savedNoteList');
+
+        dateTitle.textContent = dateText;
+        datePlace.textContent = placeText;
+        if (imagePath) {
+            dateImage.src = imagePath;
+        }
+
+        const noteKey = `dateThoughts_${dateId}`;
+
+        function getNotes() {
+            const raw = localStorage.getItem(noteKey);
+            if (!raw) {
+                return [];
+            }
+
+            try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    return parsed;
+                }
+                if (typeof parsed === 'string' && parsed.trim()) {
+                    return [{ text: parsed, time: '' }];
+                }
+            } catch (error) {
+                if (raw.trim()) {
+                    return [{ text: raw, time: '' }];
+                }
+            }
+
+            return [];
+        }
+
+        function setNotes(notes) {
+            localStorage.setItem(noteKey, JSON.stringify(notes));
+        }
+
+        function renderNotes() {
+            const notes = getNotes();
+            if (!notes.length) {
+                savedNoteList.innerHTML = '<div class="saved-note-text">No note saved yet.</div>';
+                return;
+            }
+
+            savedNoteList.innerHTML = notes.map(function(note, index) {
+                const noteText = typeof note === 'string' ? note : (note.text || '');
+                const noteTime = typeof note === 'string' ? '' : (note.time || '');
+                return '<div class="saved-note-item">' +
+                    '<div class="saved-note-text">' + noteText.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+                    '<div class="saved-note-time">' + (noteTime ? ('Saved at ' + noteTime) : '') + '</div>' +
+                    '<div class="saved-note-actions"><button class="saved-note-delete" data-index="' + index + '" type="button">Delete</button></div>' +
+                '</div>';
+            }).join('');
+        }
+
+        renderNotes();
+
+        saveBtn.addEventListener('click', function() {
+            const value = dateNote.value.trim();
+            if (!value) {
+                savedText.textContent = 'Write a note first';
+                setTimeout(function() {
+                    savedText.textContent = '';
+                }, 1200);
+                return;
+            }
+
+            const notes = getNotes();
+            const now = new Date();
+            const formatted = now.toLocaleString([], {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            notes.push({ text: value, time: formatted });
+            setNotes(notes);
+            renderNotes();
+            dateNote.value = '';
+            savedText.textContent = 'Saved';
+            setTimeout(function() {
+                savedText.textContent = '';
+            }, 1200);
+        });
+
+        savedNoteList.addEventListener('click', function(event) {
+            const button = event.target.closest('.saved-note-delete');
+            if (!button) {
+                return;
+            }
+
+            const index = Number(button.getAttribute('data-index'));
+            const notes = getNotes();
+            if (Number.isNaN(index) || index < 0 || index >= notes.length) {
+                return;
+            }
+
+            notes.splice(index, 1);
+            if (notes.length) {
+                setNotes(notes);
+            } else {
+                localStorage.removeItem(noteKey);
+            }
+            renderNotes();
+            savedText.textContent = 'Deleted';
+            setTimeout(function() {
+                savedText.textContent = '';
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
